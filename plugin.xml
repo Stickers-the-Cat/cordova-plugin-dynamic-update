@@ -6,7 +6,7 @@
     <description>Cordova Plugin to dynamically update the app www directory.</description>
     <keywords>cordova, update, dynamic, www, public, zip</keywords>
     <engines>
-        <engine name="cordova" version=">=3.0.0" />
+        <engine name="cordova" version=">=4.0.0" />
     </engines>
     <js-module src="www/dynamicupdate.js" name="DynamicUpdate">
         <clobbers target="dynamicupdate" />
