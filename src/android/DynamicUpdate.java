@@ -13,9 +13,13 @@ import java.util.zip.ZipFile;
 import org.json.*;
 
 import org.apache.cordova.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+// import org.apache.http.HttpResponse;
+// import org.apache.http.client.methods.HttpGet;
+// import org.apache.http.impl.client.DefaultHttpClient;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.io.InputStream;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -93,9 +97,13 @@ public class DynamicUpdate extends CordovaPlugin {
 
     private void download(String url) throws Exception {
 
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+        //DefaultHttpClient httpClient = new DefaultHttpClient();
 
-        HttpGet get = new HttpGet(url);
+        URL get = new URL(url);
+
+        HttpURLConnection httpClient = (HttpURLConnection) get.openConnection();
+        InputStream is = httpClient.getInputStream();
+
         get.setHeader("Content-Type", "application/zip");
 
         HttpResponse response = httpClient.execute(get);
