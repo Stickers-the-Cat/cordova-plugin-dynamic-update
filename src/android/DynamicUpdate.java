@@ -158,7 +158,7 @@ public class DynamicUpdate extends CordovaPlugin {
 		while ((bytesRead = download.read(bytes)) >= 0) {
 
 			total += bytesRead;
-			final int test = int(int)((total*100)/contentLength);
+			final int test = ((total*100)/contentLength);
 			
 
 			file.write(bytes, 0, bytesRead);
