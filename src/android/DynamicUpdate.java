@@ -17,18 +17,18 @@ import org.apache.cordova.*;
 // import org.apache.http.client.methods.HttpGet;
 // import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.InputStream;
-    import java.net.URL;
-    import java.io.DataInputStream;
-    import java.io.DataOutputStream;
-    import java.io.File;
-    import java.io.FileNotFoundException;
-    import java.io.FileOutputStream;
-    import java.io.IOException;
-    import java.net.HttpURLConnection;
-    import java.net.MalformedURLException;
-    import android.widget.ProgressBar;
-    import java.net.URL;
-    import java.net.URLConnection;
+	import java.net.URL;
+	import java.io.DataInputStream;
+	import java.io.DataOutputStream;
+	import java.io.File;
+	import java.io.FileNotFoundException;
+	import java.io.FileOutputStream;
+	import java.io.IOException;
+	import java.net.HttpURLConnection;
+	import java.net.MalformedURLException;
+	import android.widget.ProgressBar;
+	import java.net.URL;
+	import java.net.URLConnection;
 
 
 import android.content.Context;
@@ -41,182 +41,193 @@ import android.webkit.WebViewClient;
 
 public class DynamicUpdate extends CordovaPlugin {
 
-    CallbackContext callback;
-    Context context;
+	CallbackContext callback;
+	Context context;
 
-    String www;
-    String downloadZip;
-    String indexHtml;
+	String www;
+	String downloadZip;
+	String indexHtml;
 
-    @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-        context = cordova.getActivity().getApplicationContext();
-    }
+	@Override
+	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 
-    @Override
-    public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-        callback = callbackContext;
+		super.initialize(cordova, webView);
+		context = cordova.getActivity().getApplicationContext();
+	}
 
-        www = context.getFilesDir().getPath() + "/";
+	@Override
+	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-        if (action.equals("download")) {
-            downloadZip = www + "update.zip";
+		callback = callbackContext;
 
-            JSONObject json = args.getJSONObject(0);
-            String url = getJSONProperty(json, "url");
+		www = context.getFilesDir().getPath() + "/";
 
-            try {
-                this.download(url);
-                PluginResult result = new PluginResult(PluginResult.Status.OK);
-                callback.sendPluginResult(result);
-                return true;
-            } catch (Exception e) {
-                PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
-                callback.sendPluginResult(result);
-                return false;
-            }
-        }
+		if (action.equals("download")) {
 
-        if (action.equals("deploy")) {
-            indexHtml = www + "index.html";
+			downloadZip = www + "update.zip";
 
-            File indexFile = new File(indexHtml);
+			JSONObject json = args.getJSONObject(0);
+			String url = getJSONProperty(json, "url");
 
-            if (!indexFile.exists()) {
-                PluginResult result = new PluginResult(PluginResult.Status.ERROR, "index.html not found");
-                callback.sendPluginResult(result);
-                return false;
-            }
+			try {
 
-            super.webView.loadUrl("file://" + indexHtml);
-            return true;
-        }
+				this.download(url);
+				PluginResult result = new PluginResult(PluginResult.Status.OK);
+				callback.sendPluginResult(result);
+				return true;
 
-        PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Unknown action");
-        callback.sendPluginResult(result);
-        return false;
-    }
+			} catch (Exception e) {
 
-    private String getJSONProperty(JSONObject json, String property) throws JSONException {
-        if (json.has(property)) {
-            return json.getString(property);
-        }
-        return null;
-    }
+				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
+				callback.sendPluginResult(result);
+				return false;
+			}
+		}
 
-    private void download(String url) throws Exception {
+		if (action.equals("deploy")) {
+			indexHtml = www + "index.html";
 
-        //DefaultHttpClient httpClient = new DefaultHttpClient();
+			File indexFile = new File(indexHtml);
 
-        URL get = new URL(url);
+			if (!indexFile.exists()) {
+				PluginResult result = new PluginResult(PluginResult.Status.ERROR, "index.html not found");
+				callback.sendPluginResult(result);
+				return false;
+			}
 
-        HttpURLConnection httpClient = (HttpURLConnection) get.openConnection();
-        InputStream is = httpClient.getInputStream();
+			super.webView.loadUrl("file://" + indexHtml);
+			return true;
+		}
 
-        httpClient.setRequestMethod("GET");
-        httpClient.setDoOutput(true);
+		PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Unknown action");
+		callback.sendPluginResult(result);
+		return false;
+	}
 
-        httpClient.connect();
+	private String getJSONProperty(JSONObject json, String property) throws JSONException {
+		if (json.has(property)) {
+			return json.getString(property);
+		}
+		return null;
+	}
 
-        //HttpResponse response = httpClient.execute(get);
+	private void download(String url) throws Exception {
 
-        //BufferedInputStream download = new BufferedInputStream(response.getEntity().getContent());
+		//DefaultHttpClient httpClient = new DefaultHttpClient();
 
-        InputStream download= httpClient.getInputStream();
+		URL get = new URL(url);
 
-        File downloadPath = new File(downloadZip);
+		HttpURLConnection httpClient = (HttpURLConnection) get.openConnection();
+		InputStream is = httpClient.getInputStream();
 
-        if (downloadPath.exists()) {
-            downloadPath.delete();
-        }
+		httpClient.setRequestMethod("GET");
+		httpClient.setDoOutput(true);
 
-        downloadPath.getParentFile().mkdirs();
+		httpClient.connect();
 
-        FileOutputStream file = new FileOutputStream(downloadZip);
+		//HttpResponse response = httpClient.execute(get);
 
-        int bytesRead = 0;
-        long contentLength = httpClient.getContentLength();
+		//BufferedInputStream download = new BufferedInputStream(response.getEntity().getContent());
 
-        byte[] bytes = new byte[1024];
+		InputStream download = httpClient.getInputStream();
 
-        if (contentLength == 0) {
-            file.close();
-        }
+		File downloadPath = new File(downloadZip);
 
-        while ((bytesRead = download.read(bytes)) >= 0) {
-            file.write(bytes, 0, bytesRead);
-            file.flush();
-        }
+		if (downloadPath.exists()) {
 
-        //httpClient.consumeContent();
-        file.close();
+			downloadPath.delete();
+		}
 
-        this.unzip();
-    }
+		downloadPath.getParentFile().mkdirs();
 
-    private void unzip() throws Exception {
-        ZipFile zip = new ZipFile(downloadZip);
-        Enumeration<? extends ZipEntry> entries = zip.entries();
+		FileOutputStream file = new FileOutputStream(downloadZip);
 
-        while (entries.hasMoreElements()) {
-            ZipEntry entry = entries.nextElement();
-            File zipFile = new File(www + entry.getName());
+		int bytesRead = 0;
+		long contentLength = httpClient.getContentLength();
 
-            if (!entry.isDirectory()) {
-                zipFile.getParentFile().mkdirs();
+		byte[] bytes = new byte[1024];
 
-                FileOutputStream fileOutput = new FileOutputStream(www + entry.getName());
-                BufferedOutputStream bufferedOutput = new BufferedOutputStream(fileOutput);
+		if (contentLength == 0) {
+			file.close();
+		}
 
-                copyStream(zip.getInputStream(entry), bufferedOutput);
-            }
-        }
+		while ((bytesRead = download.read(bytes)) >= 0) {
+			file.write(bytes, 0, bytesRead);
+			file.flush();
+		}
 
-        zip.close();
+		//httpClient.consumeContent();
+		file.close();
 
-        copyStream(context.getAssets().open("www/cordova.js"),
-        new FileOutputStream(www + "cordova.js"));
+		httpClient.disconnect();
+		
+		this.unzip();
+	}
 
-        copyStream(context.getAssets().open("www/cordova_plugins.js"),
-        new FileOutputStream(www + "cordova_plugins.js"));
+	private void unzip() throws Exception {
+		
+		ZipFile zip = new ZipFile(downloadZip);
+		Enumeration<? extends ZipEntry> entries = zip.entries();
 
-        this.copyDir("plugins");
+		while (entries.hasMoreElements()) {
 
-        PluginResult result = new PluginResult(PluginResult.Status.OK);
-        callback.sendPluginResult(result);
-    }
+			ZipEntry entry = entries.nextElement();
+			File zipFile = new File(www + entry.getName());
 
-    private void copyDir(String path) throws Exception {
-        AssetManager assetManager = context.getAssets();
-        String assets[] = assetManager.list("www/" + path);
+			if (!entry.isDirectory()) {
+				zipFile.getParentFile().mkdirs();
 
-        if (assets.length == 0) {
-            copyStream(context.getAssets().open("www/" + path),
-            new FileOutputStream(www + path));
-            return;
-        }
+				FileOutputStream fileOutput = new FileOutputStream(www + entry.getName());
+				BufferedOutputStream bufferedOutput = new BufferedOutputStream(fileOutput);
 
-        File dir = new File(www + path);
+				copyStream(zip.getInputStream(entry), bufferedOutput);
+			}
+		}
 
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
+		zip.close();
 
-        for (int i = 0; i < assets.length; i++) {
-            copyDir(path + "/" + assets[i]);
-        }
-    }
+		copyStream(context.getAssets().open("www/cordova.js"),
+		new FileOutputStream(www + "cordova.js"));
 
-    private void copyStream(InputStream in, OutputStream out) throws IOException {
-        byte[] buffer = new byte[1024];
-        int len;
+		copyStream(context.getAssets().open("www/cordova_plugins.js"),
+		new FileOutputStream(www + "cordova_plugins.js"));
 
-        while ((len = in.read(buffer)) >= 0) {
-            out.write(buffer, 0, len);
-        }
+		this.copyDir("plugins");
 
-        in.close();
-        out.close();
-    }
+		PluginResult result = new PluginResult(PluginResult.Status.OK);
+		callback.sendPluginResult(result);
+	}
+
+	private void copyDir(String path) throws Exception {
+		AssetManager assetManager = context.getAssets();
+		String assets[] = assetManager.list("www/" + path);
+
+		if (assets.length == 0) {
+			copyStream(context.getAssets().open("www/" + path),
+			new FileOutputStream(www + path));
+			return;
+		}
+
+		File dir = new File(www + path);
+
+		if (!dir.exists()) {
+			dir.mkdir();
+		}
+
+		for (int i = 0; i < assets.length; i++) {
+			copyDir(path + "/" + assets[i]);
+		}
+	}
+
+	private void copyStream(InputStream in, OutputStream out) throws IOException {
+		byte[] buffer = new byte[1024];
+		int len;
+
+		while ((len = in.read(buffer)) >= 0) {
+			out.write(buffer, 0, len);
+		}
+
+		in.close();
+		out.close();
+	}
 }
