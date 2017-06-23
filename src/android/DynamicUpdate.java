@@ -159,6 +159,8 @@ public class DynamicUpdate extends CordovaPlugin {
 
 			total += bytesRead;
 			final int test = ((total*100)/contentLength);
+			final int _total = total;
+			final int _contentLength = contentLength;
 			
 
 			file.write(bytes, 0, bytesRead);
@@ -170,7 +172,7 @@ public class DynamicUpdate extends CordovaPlugin {
 					public void run() {
 
 						//int cals = ((contentLength - bytesRead));
-						PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test);
+						PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test + ", " + _total + ", " + contentLength);
 						msg.setKeepCallback(true);
 						callback.sendPluginResult(msg);
 					}
