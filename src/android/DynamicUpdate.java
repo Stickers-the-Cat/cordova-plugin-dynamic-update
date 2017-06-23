@@ -159,6 +159,7 @@ public class DynamicUpdate extends CordovaPlugin {
 			this.sendUpdate( "test" );
 		}
 
+		this.sendUpdate( "test" );
 		//httpClient.consumeContent();
 		file.close();
 
@@ -236,9 +237,9 @@ public class DynamicUpdate extends CordovaPlugin {
 
 	private void sendUpdate(String type) {
 
-		PluginResult result = new PluginResult(PluginResult.Status.OK, type);
-		result.setKeepCallback(true);
-		callback.sendPluginResult(result);
+		//PluginResult result = new PluginResult(PluginResult.Status.OK, type);
+		//result.setKeepCallback(true);
+		//callback.sendPluginResult(result);
 
 		webView.postMessage("superUpdateAwesome", type);
 	}
