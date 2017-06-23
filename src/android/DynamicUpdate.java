@@ -149,7 +149,7 @@ public class DynamicUpdate extends CordovaPlugin {
             file.flush();
         }
 
-        httpClient.consumeContent();
+        //httpClient.consumeContent();
         file.close();
 
         this.unzip();
