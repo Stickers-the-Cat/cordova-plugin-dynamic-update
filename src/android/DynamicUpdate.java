@@ -156,7 +156,7 @@ public class DynamicUpdate extends CordovaPlugin {
 			file.write(bytes, 0, bytesRead);
 			file.flush();
 
-			this.sendUpdate( 'test' );
+			this.sendUpdate( "test" );
 		}
 
 		//httpClient.consumeContent();
