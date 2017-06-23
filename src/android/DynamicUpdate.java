@@ -58,55 +58,50 @@ public class DynamicUpdate extends CordovaPlugin {
 	@Override
 	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
-		cordova.getThreadPool().execute(new Runnable() {
+		callback = callbackContext;
 
-        	public void run() {
-				callback = callbackContext;
+		www = context.getFilesDir().getPath() + "/";
 
-				www = context.getFilesDir().getPath() + "/";
+		if (action.equals("download")) {
 
-				if (action.equals("download")) {
+			downloadZip = www + "update.zip";
 
-					downloadZip = www + "update.zip";
+			JSONObject json = args.getJSONObject(0);
+			String url = getJSONProperty(json, "url");
 
-					JSONObject json = args.getJSONObject(0);
-					String url = getJSONProperty(json, "url");
+			try {
 
-					try {
+				this.download(url);
+				PluginResult result = new PluginResult(PluginResult.Status.OK);
+				callback.sendPluginResult(result);
+				return true;
 
-						this.download(url);
-						PluginResult result = new PluginResult(PluginResult.Status.OK);
-						callback.sendPluginResult(result);
-						return true;
+			} catch (Exception e) {
 
-					} catch (Exception e) {
-
-						PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
-						callback.sendPluginResult(result);
-						return false;
-					}
-				}
-
-				if (action.equals("deploy")) {
-					indexHtml = www + "index.html";
-
-					File indexFile = new File(indexHtml);
-
-					if (!indexFile.exists()) {
-						PluginResult result = new PluginResult(PluginResult.Status.ERROR, "index.html not found");
-						callback.sendPluginResult(result);
-						return false;
-					}
-
-					super.webView.loadUrl("file://" + indexHtml);
-					return true;
-				}
-
-				PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Unknown action");
+				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
 				callback.sendPluginResult(result);
 				return false;
 			}
-		});
+		}
+
+		if (action.equals("deploy")) {
+			indexHtml = www + "index.html";
+
+			File indexFile = new File(indexHtml);
+
+			if (!indexFile.exists()) {
+				PluginResult result = new PluginResult(PluginResult.Status.ERROR, "index.html not found");
+				callback.sendPluginResult(result);
+				return false;
+			}
+
+			super.webView.loadUrl("file://" + indexHtml);
+			return true;
+		}
+
+		PluginResult result = new PluginResult(PluginResult.Status.ERROR, "Unknown action");
+		callback.sendPluginResult(result);
+		return false;
 	}
 
 	private String getJSONProperty(JSONObject json, String property) throws JSONException {
@@ -162,9 +157,16 @@ public class DynamicUpdate extends CordovaPlugin {
 
 			file.write(bytes, 0, bytesRead);
 			file.flush();
+			cordova.getThreadPool().execute(new Runnable() {
+				
+				public void run() {
 
-			int cals = ((contentLength - bytesRead));
-			this.sendUpdate( "test " + cals );
+					//int cals = ((contentLength - bytesRead));
+					PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing");
+					msg.setKeepCallback(true);
+					callback.sendPluginResult(msg);
+				}
+			});
 		}
 
 		this.sendUpdate( "{\"downloading\": \"done\"}" );
