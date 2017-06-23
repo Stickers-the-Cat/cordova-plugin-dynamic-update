@@ -156,7 +156,7 @@ public class DynamicUpdate extends CordovaPlugin {
 			file.write(bytes, 0, bytesRead);
 			file.flush();
 
-			int cals = ((contentLength - bytesRead))
+			int cals = ((contentLength - bytesRead));
 			this.sendUpdate( cals );
 		}
 
