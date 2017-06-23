@@ -121,7 +121,7 @@ public class DynamicUpdate extends CordovaPlugin {
 		InputStream is = httpClient.getInputStream();
 
 		httpClient.setRequestMethod("GET");
-		httpClient.setDoOutput(true);
+		httpClient.setDoInput(true);
 
 		httpClient.connect();
 
@@ -160,7 +160,7 @@ public class DynamicUpdate extends CordovaPlugin {
 		file.close();
 
 		httpClient.disconnect();
-		
+
 		this.unzip();
 	}
 
