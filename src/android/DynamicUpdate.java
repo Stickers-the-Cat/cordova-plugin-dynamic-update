@@ -116,12 +116,14 @@ public class DynamicUpdate extends CordovaPlugin {
 
         httpClient.setRequestMethod("GET");
         httpClient.setDoOutput(true);
-        
+
         httpClient.connect();
 
         //HttpResponse response = httpClient.execute(get);
 
-        BufferedInputStream download = new BufferedInputStream(response.getEntity().getContent());
+        //BufferedInputStream download = new BufferedInputStream(response.getEntity().getContent());
+
+        InputStream download= httpClient.getInputStream();
 
         File downloadPath = new File(downloadZip);
 
@@ -134,7 +136,7 @@ public class DynamicUpdate extends CordovaPlugin {
         FileOutputStream file = new FileOutputStream(downloadZip);
 
         int bytesRead = 0;
-        long contentLength = response.getEntity().getContentLength();
+        long contentLength = httpClient.getContentLength();
 
         byte[] bytes = new byte[1024];
 
@@ -147,7 +149,7 @@ public class DynamicUpdate extends CordovaPlugin {
             file.flush();
         }
 
-        response.getEntity().consumeContent();
+        httpClient.consumeContent();
         file.close();
 
         this.unzip();
