@@ -144,7 +144,7 @@ public class DynamicUpdate extends CordovaPlugin {
 
 		int bytesRead = 0;
 		int contentLength = httpClient.getContentLength();
-		int total;
+		int total = 0;
 
 		byte[] bytes = new byte[1024];
 
@@ -158,7 +158,7 @@ public class DynamicUpdate extends CordovaPlugin {
 
 			total += bytesRead;
 			final String test = ""+(int)((total*100)/contentLength);
-			
+
 			file.write(bytes, 0, bytesRead);
 			file.flush();
 
