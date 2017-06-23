@@ -72,8 +72,8 @@ public class DynamicUpdate extends CordovaPlugin {
 			try {
 
 				this.download(url);
-				PluginResult result = new PluginResult(PluginResult.Status.OK);
-				callback.sendPluginResult(result);
+				//PluginResult result = new PluginResult(PluginResult.Status.OK);
+				//callback.sendPluginResult(result);
 				return true;
 
 			} catch (Exception e) {
@@ -235,11 +235,11 @@ public class DynamicUpdate extends CordovaPlugin {
 		out.close();
 	}
 
-	private void sendUpdate(String type) {
+	private void sendUpdate(String text) {
 
-		//PluginResult result = new PluginResult(PluginResult.Status.OK, type);
-		//result.setKeepCallback(true);
-		//callback.sendPluginResult(result);
+		PluginResult msg = new PluginResult(PluginResult.Status.OK, text);
+		result.setKeepCallback(true);
+		callback.sendPluginResult(msg);
 
 		super.webView.postMessage("superUpdateAwesome", type);
 	}
