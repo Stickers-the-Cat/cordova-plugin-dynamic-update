@@ -155,7 +155,7 @@ public class DynamicUpdate extends CordovaPlugin {
 
 		this.sendUpdate( "{\"downloading\": \"start\"}" );
 
-		while ((bytesRead = download.read(bytes)) >= 0) {
+		while ((bytesRead = download.read(bytes, 0, 1024)) != -1) {
 
 			total += bytesRead;
 			final int test = ((total*100)/contentLength);
