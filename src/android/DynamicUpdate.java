@@ -72,8 +72,8 @@ public class DynamicUpdate extends CordovaPlugin {
 			try {
 
 				this.download(url);
-				//PluginResult result = new PluginResult(PluginResult.Status.OK);
-				//callback.sendPluginResult(result);
+				PluginResult result = new PluginResult(PluginResult.Status.OK);
+				callback.sendPluginResult(result);
 				return true;
 
 			} catch (Exception e) {
@@ -157,7 +157,7 @@ public class DynamicUpdate extends CordovaPlugin {
 			file.flush();
 
 			int cals = ((contentLength - bytesRead));
-			this.sendUpdate( "" + cals );
+			this.sendUpdate( "test " + cals );
 		}
 
 		this.sendUpdate( "{\"downloading\": \"done\"}" );
@@ -241,7 +241,5 @@ public class DynamicUpdate extends CordovaPlugin {
 		PluginResult msg = new PluginResult(PluginResult.Status.OK, text);
 		msg.setKeepCallback(true);
 		callback.sendPluginResult(msg);
-
-		super.webView.postMessage("superUpdateAwesome", text);
 	}
 }
