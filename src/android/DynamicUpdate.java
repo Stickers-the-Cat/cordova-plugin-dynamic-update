@@ -48,6 +48,8 @@ public class DynamicUpdate extends CordovaPlugin {
 	String downloadZip;
 	String indexHtml;
 
+	private String myCbkId;
+
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 
@@ -57,6 +59,8 @@ public class DynamicUpdate extends CordovaPlugin {
 
 	@Override
 	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
+
+		myCbkId = cbkCtx.getCallbackId(); 
 
 		callback = callbackContext;
 
@@ -239,8 +243,8 @@ public class DynamicUpdate extends CordovaPlugin {
 
 		PluginResult msg = new PluginResult(PluginResult.Status.OK, text);
 		msg.setKeepCallback(true);
-		callback.sendPluginResult(msg);
+		this.webView.sendPluginResult(msg, this.myCbkId); 
 
-		super.webView.postMessage("superUpdateAwesome", text);
+		//super.webView.postMessage("superUpdateAwesome", text);
 	}
 }
