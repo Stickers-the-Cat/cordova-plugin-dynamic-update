@@ -78,7 +78,7 @@ public class DynamicUpdate extends CordovaPlugin {
 
 			} catch (Exception e) {
 
-				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMassage);
+				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
 				callback.sendPluginResult(result);
 				return false;
 			}
