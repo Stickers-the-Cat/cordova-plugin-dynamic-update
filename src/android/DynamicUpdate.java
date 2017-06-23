@@ -118,7 +118,7 @@ public class DynamicUpdate extends CordovaPlugin {
 		URL get = new URL(url);
 
 		HttpURLConnection httpClient = (HttpURLConnection) get.openConnection();
-		InputStream is = httpClient.getInputStream();
+		//InputStream is = httpClient.getInputStream();
 
 		httpClient.setRequestMethod("GET");
 		//httpClient.setDoInput(true);
@@ -152,8 +152,11 @@ public class DynamicUpdate extends CordovaPlugin {
 		}
 
 		while ((bytesRead = download.read(bytes)) >= 0) {
+
 			file.write(bytes, 0, bytesRead);
 			file.flush();
+
+			this.sendUpdate( 'test' );
 		}
 
 		//httpClient.consumeContent();
@@ -229,5 +232,14 @@ public class DynamicUpdate extends CordovaPlugin {
 
 		in.close();
 		out.close();
+	}
+
+	private void sendUpdate(String type) {
+
+		PluginResult result = new PluginResult(PluginResult.Status.OK, type);
+		result.setKeepCallback(true);
+		callback.sendPluginResult(result);
+
+		webView.postMessage("superUpdateAwesome", type);
 	}
 }
