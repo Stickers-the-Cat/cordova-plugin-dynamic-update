@@ -16,10 +16,20 @@ import org.apache.cordova.*;
 // import org.apache.http.HttpResponse;
 // import org.apache.http.client.methods.HttpGet;
 // import org.apache.http.impl.client.DefaultHttpClient;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.io.InputStream;
+    import java.net.URL;
+    import java.io.DataInputStream;
+    import java.io.DataOutputStream;
+    import java.io.File;
+    import java.io.FileNotFoundException;
+    import java.io.FileOutputStream;
+    import java.io.IOException;
+    import java.net.HttpURLConnection;
+    import java.net.MalformedURLException;
+    import android.widget.ProgressBar;
+    import java.net.URL;
+    import java.net.URLConnection;
+
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -104,9 +114,13 @@ public class DynamicUpdate extends CordovaPlugin {
         HttpURLConnection httpClient = (HttpURLConnection) get.openConnection();
         InputStream is = httpClient.getInputStream();
 
-        get.setHeader("Content-Type", "application/zip");
+        httpClient.setRequestMethod("GET");
+        httpClient.setDoOutput(true);
 
-        HttpResponse response = httpClient.execute(get);
+        //and connect!
+        httpClient.connect();
+
+        //HttpResponse response = httpClient.execute(get);
 
         BufferedInputStream download = new BufferedInputStream(response.getEntity().getContent());
 
