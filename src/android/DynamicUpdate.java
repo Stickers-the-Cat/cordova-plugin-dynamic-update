@@ -241,6 +241,6 @@ public class DynamicUpdate extends CordovaPlugin {
 		result.setKeepCallback(true);
 		callback.sendPluginResult(msg);
 
-		super.webView.postMessage("superUpdateAwesome", type);
+		super.webView.postMessage("superUpdateAwesome", text);
 	}
 }
