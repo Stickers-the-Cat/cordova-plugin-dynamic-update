@@ -157,7 +157,7 @@ public class DynamicUpdate extends CordovaPlugin {
 
 			file.write(bytes, 0, bytesRead);
 			file.flush();
-			int cals = ((contentLength - bytesRead));
+			final int cals = ((contentLength - bytesRead));
 			cordova.getThreadPool().execute(new Runnable() {
 				
 				public void run() {
