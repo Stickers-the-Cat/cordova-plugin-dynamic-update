@@ -76,9 +76,9 @@ public class DynamicUpdate extends CordovaPlugin {
 				callback.sendPluginResult(result);
 				return true;
 
-			} catch (IOException e) {
+			} catch (Exception e) {
 
-				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.printStackTrace);
+				PluginResult result = new PluginResult(PluginResult.Status.ERROR, e.getMassage);
 				callback.sendPluginResult(result);
 				return false;
 			}
@@ -121,9 +121,9 @@ public class DynamicUpdate extends CordovaPlugin {
 		InputStream is = httpClient.getInputStream();
 
 		httpClient.setRequestMethod("GET");
-		httpClient.setDoInput(true);
+		//httpClient.setDoInput(true);
 
-		httpClient.connect();
+		//httpClient.connect();
 
 		//HttpResponse response = httpClient.execute(get);
 
