@@ -13,7 +13,7 @@ cordova plugin add cordova-plugin-dynamic-update
 #### Latest version from GitHub
 
 ```
-cordova plugin add https://github.com/leecrossley/cordova-plugin-dynamic-update.git
+cordova plugin add https://github.com/Stickers-the-Cat/cordova-plugin-dynamic-update.git
 ```
 
 ## Usage

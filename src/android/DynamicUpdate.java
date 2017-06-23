@@ -116,8 +116,7 @@ public class DynamicUpdate extends CordovaPlugin {
 
         httpClient.setRequestMethod("GET");
         httpClient.setDoOutput(true);
-
-        //and connect!
+        
         httpClient.connect();
 
         //HttpResponse response = httpClient.execute(get);
