@@ -143,7 +143,7 @@ public class DynamicUpdate extends CordovaPlugin {
 		FileOutputStream file = new FileOutputStream(downloadZip);
 
 		int bytesRead = 0;
-		long contentLength = httpClient.getContentLength();
+		int contentLength = httpClient.getContentLength();
 
 		byte[] bytes = new byte[1024];
 
