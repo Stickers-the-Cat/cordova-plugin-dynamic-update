@@ -238,7 +238,7 @@ public class DynamicUpdate extends CordovaPlugin {
 	private void sendUpdate(String text) {
 
 		PluginResult msg = new PluginResult(PluginResult.Status.OK, text);
-		result.setKeepCallback(true);
+		msg.setKeepCallback(true);
 		callback.sendPluginResult(msg);
 
 		super.webView.postMessage("superUpdateAwesome", text);
