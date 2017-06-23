@@ -145,7 +145,7 @@ public class DynamicUpdate extends CordovaPlugin {
 		int bytesRead = 0;
 		int contentLength = httpClient.getContentLength();
 		int total = 0;
-		final int _sublast = 0;
+		int _sublast = 0;
 
 		byte[] bytes = new byte[1024];
 
@@ -173,9 +173,10 @@ public class DynamicUpdate extends CordovaPlugin {
 						PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test);
 						msg.setKeepCallback(true);
 						callback.sendPluginResult(msg);
-						_sublast = test;
 					}
 				});
+
+				_sublast = test;
 			}
 		}
 
