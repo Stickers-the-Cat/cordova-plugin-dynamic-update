@@ -172,7 +172,7 @@ public class DynamicUpdate extends CordovaPlugin {
 					public void run() {
 
 						//int cals = ((contentLength - bytesRead));
-						PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test + ", " + _total + ", " + contentLength);
+						PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test + ", " + _total + ", " + _contentLength);
 						msg.setKeepCallback(true);
 						callback.sendPluginResult(msg);
 					}
