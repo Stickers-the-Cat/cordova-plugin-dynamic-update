@@ -78,7 +78,7 @@ public class appDownloader extends CordovaPlugin {
             		@Override
             		public void run() {
 
-						download(url);
+						appDownloader.download(url);
                 		PluginResult result = new PluginResult(PluginResult.Status.OK);
 						callback.sendPluginResult(result);
             		}
@@ -120,7 +120,7 @@ public class appDownloader extends CordovaPlugin {
 		return null;
 	}
 
-	private void download(String url) throws Exception {
+	private static void download(String url) throws Exception {
 
 		//DefaultHttpClient httpClient = new DefaultHttpClient();
 
