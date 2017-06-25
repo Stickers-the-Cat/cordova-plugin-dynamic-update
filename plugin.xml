@@ -12,9 +12,9 @@
     </js-module>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <!--<feature name="appUpdater">
-                <param name="android-package" value="com.stickersthecat.appUpdater" />
-            </feature>-->
+            <feature name="appUpdateData">
+                <param name="android-package" value="com.stickersthecat.downloader" />
+            </feature>
             <feature name="downloader">
                 <param name="android-package" value="com.stickersthecat.downloader" />
             </feature>
@@ -23,7 +23,7 @@
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
-        <!--<source-file src="src/android/appUpdater.java" target-dir="src/com/stickersthecat/dynamicupdate" />-->
-        <source-file src="src/android/appUpdaterDownloader.java" target-dir="src/com/stickersthecat/downloader" />
+        <source-file src="src/android/appUpdateData.java" target-dir="src/com/stickersthecat/appUpdateData" />
+        <source-file src="src/android/appDownloader.java" target-dir="src/com/stickersthecat/appDownloader" />
     </platform>
 </plugin>
