@@ -155,8 +155,6 @@ public class appDownloader extends CordovaPlugin {
 			file.close();
 		}
 
-		this.sendUpdate( "{\"downloading\": \"start\"}" );
-
 		while ((bytesRead = download.read(bytes, 0, 1024)) != -1) {
 
 			total += bytesRead;
@@ -170,22 +168,11 @@ public class appDownloader extends CordovaPlugin {
 
 			pre = test;
 			if( _sublast != test ) {
-				cordova.getThreadPool().execute(new Runnable() {
-				
-					public void run() {
 
-						//int cals = ((contentLength - bytesRead));
-						PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test + ", " + _total + ", " + _contentLength);
-						msg.setKeepCallback(true);
-						callback.sendPluginResult(msg);
-					}
-				});
-
-				_sublast = test;
+				appUpdateData.percent+=1;
 			}
 		}
-
-		this.sendUpdate( "{\"downloading\": \"done\"}" );
+		
 		//httpClient.consumeContent();
 		file.close();
 

@@ -60,7 +60,7 @@ public class appUpdateData extends CordovaPlugin {
 
 		if (action.equals("getData")) {
 
-			percent+=1;
+			//percent+=1;
 			PluginResult result = new PluginResult(PluginResult.Status.OK, ""+percent);
 			callback.sendPluginResult(result);
 			return true;
