@@ -1,25 +1,29 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-runtime-updater" version="0.3.0">
-    <name>CGM updater</name>
-    <author>Lee Crossley (http://ilee.co.uk/)</author>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-app-update" version="0.0.1">
+    <name>app Updater</name>
+    <author>Leslie Bruder</author>
     <description>Cordova Plugin to dynamically update the app www directory.</description>
     <keywords>cordova, update, dynamic, www, public, zip</keywords>
     <engines>
         <engine name="cordova" version=">=4.0.0" />
     </engines>
-    <js-module src="www/dynamicupdate.js" name="DynamicUpdate">
-        <clobbers target="dynamicupdate" />
+    <js-module src="www/appUpdater.js" name="appUpdater">
+        <clobbers target="appUpdater" />
     </js-module>
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="DynamicUpdate">
-                <param name="android-package" value="uk.co.ilee.dynamicupdate.DynamicUpdate" />
+            <!--<feature name="appUpdater">
+                <param name="android-package" value="com.stickersthecat.appUpdater" />
+            </feature>-->
+            <feature name="downloader">
+                <param name="android-package" value="com.stickersthecat.downloader" />
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
-        <source-file src="src/android/DynamicUpdate.java" target-dir="src/uk/co/ilee/dynamicupdate" />
+        <!--<source-file src="src/android/appUpdater.java" target-dir="src/com/stickersthecat/dynamicupdate" />-->
+        <source-file src="src/android/appUpdaterDownloader.java" target-dir="src/com/stickersthecat/downloader" />
     </platform>
 </plugin>

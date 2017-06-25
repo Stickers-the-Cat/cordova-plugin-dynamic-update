@@ -3,7 +3,7 @@
 //  Copyright (c) 2014 Lee Crossley - http://ilee.co.uk
 //
 
-package uk.co.ilee.dynamicupdate;
+package com.stickersthecat.downloader;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -48,6 +48,8 @@ public class DynamicUpdate extends CordovaPlugin {
 	String downloadZip;
 	String indexHtml;
 
+	int pre;
+
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 
@@ -61,7 +63,13 @@ public class DynamicUpdate extends CordovaPlugin {
 		callback = callbackContext;
 
 		www = context.getFilesDir().getPath() + "/";
+		
+		if (action.equals("get_data")) {
 
+			PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test + ", " + _total + ", " + _contentLength);
+			callback.sendPluginResult(msg);
+			return true;
+		}
 		if (action.equals("download")) {
 
 			downloadZip = www + "update.zip";
@@ -166,6 +174,7 @@ public class DynamicUpdate extends CordovaPlugin {
 			file.write(bytes, 0, bytesRead);
 			file.flush();
 
+			pre = test;
 			if( _sublast != test ) {
 				cordova.getThreadPool().execute(new Runnable() {
 				
