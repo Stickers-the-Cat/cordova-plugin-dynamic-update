@@ -63,6 +63,8 @@ public class appUpdateData extends CordovaPlugin {
 			callback.sendPluginResult(result);
 			return true;
 		}
+
+		return false;
 	}
 
 	private String getJSONProperty(JSONObject json, String property) throws JSONException {
