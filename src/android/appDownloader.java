@@ -63,13 +63,7 @@ public class appDownloader extends CordovaPlugin {
 		callback = callbackContext;
 
 		www = context.getFilesDir().getPath() + "/";
-		
-		if (action.equals("get_data")) {
 
-			PluginResult msg = new PluginResult(PluginResult.Status.OK, "testing " + test + ", " + _total + ", " + _contentLength);
-			callback.sendPluginResult(msg);
-			return true;
-		}
 		if (action.equals("download")) {
 
 			downloadZip = www + "update.zip";
