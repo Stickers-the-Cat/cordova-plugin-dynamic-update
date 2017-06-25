@@ -1,8 +1,3 @@
-//
-//  DynamicUpdate.java
-//  Copyright (c) 2014 Lee Crossley - http://ilee.co.uk
-//
-
 package com.stickersthecat.downloader;
 
 import java.io.*;

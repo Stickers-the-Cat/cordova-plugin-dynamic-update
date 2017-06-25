@@ -76,10 +76,15 @@ public class appDownloader extends CordovaPlugin {
 				cordova.getThreadPool().execute(new Runnable() {
 
             		@Override
-            		public void run() {
+            		public void run() {	
 
-						appDownloader.download(url);
-                		PluginResult result = new PluginResult(PluginResult.Status.OK);
+						/* dunno why, but this is needed */
+						try {
+							appDownloader.this.download(url);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						PluginResult result = new PluginResult(PluginResult.Status.OK);
 						callback.sendPluginResult(result);
             		}
         		});
@@ -120,7 +125,7 @@ public class appDownloader extends CordovaPlugin {
 		return null;
 	}
 
-	private static void download(String url) throws Exception {
+	private void download(String url) throws Exception {
 
 		//DefaultHttpClient httpClient = new DefaultHttpClient();
 
@@ -151,10 +156,10 @@ public class appDownloader extends CordovaPlugin {
 
 		FileOutputStream file = new FileOutputStream(downloadZip);
 
-		int bytesRead = 0;
-		int contentLength = httpClient.getContentLength();
-		int total = 0;
-		int _sublast = 0;
+		float bytesRead = 0;
+		float contentLength = httpClient.getContentLength();
+		float total = 0;
+		float _sublast = 0;
 
 		byte[] bytes = new byte[1024];
 
@@ -165,18 +170,17 @@ public class appDownloader extends CordovaPlugin {
 		while ((bytesRead = download.read(bytes, 0, 1024)) != -1) {
 
 			total += bytesRead;
-			final int test = ((total*100)/contentLength);
-			final int _total = total;
-			final int _contentLength = contentLength;
+			float percent = ((total*100)/contentLength);
 			
 
-			file.write(bytes, 0, bytesRead);
+			file.write(bytes, 0,(int)bytesRead);
 			file.flush();
 
-			pre = test;
-			if( _sublast != test ) {
+			//pre = test;
+			if( _sublast != percent ) {
 
-				appUpdateData.percent+=1;
+				appUpdateData.percent = ""+percent;
+				_sublast += 1;
 			}
 		}
 
