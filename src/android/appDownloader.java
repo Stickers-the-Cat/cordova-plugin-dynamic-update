@@ -69,13 +69,20 @@ public class appDownloader extends CordovaPlugin {
 			downloadZip = www + "update.zip";
 
 			JSONObject json = args.getJSONObject(0);
-			String url = getJSONProperty(json, "url");
+			final String url = getJSONProperty(json, "url");
 
 			try {
 
-				this.download(url);
-				PluginResult result = new PluginResult(PluginResult.Status.OK);
-				callback.sendPluginResult(result);
+				cordova.getThreadPool().execute(new Runnable() {
+
+            		@Override
+            		public void run() {
+
+						download(url);
+                		PluginResult result = new PluginResult(PluginResult.Status.OK);
+						callback.sendPluginResult(result);
+            		}
+        		});
 				return true;
 
 			} catch (Exception e) {
@@ -172,7 +179,7 @@ public class appDownloader extends CordovaPlugin {
 				appUpdateData.percent+=1;
 			}
 		}
-		
+
 		//httpClient.consumeContent();
 		file.close();
 
