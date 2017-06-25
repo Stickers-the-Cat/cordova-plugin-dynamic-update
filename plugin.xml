@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-app-update" version="0.0.4">
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android" id="cordova-plugin-app-update" version="0.0.5">
     <name>app Updater</name>
     <author>Leslie Bruder</author>
     <description>Cordova Plugin to dynamically update the app www directory.</description>
@@ -13,10 +13,10 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="appUpdateData">
-                <param name="android-package" value="com.stickersthecat.downloader" />
+                <param name="android-package" value="com.stickersthecat.downloader.appUpdateData" />
             </feature>
             <feature name="appDownloader">
-                <param name="android-package" value="com.stickersthecat.downloader" />
+                <param name="android-package" value="com.stickersthecat.downloader.appDownloader" />
             </feature>
         </config-file>
         <config-file target="AndroidManifest.xml" parent="/*">
