@@ -16,7 +16,6 @@ appUpdater.prototype.update = function (onUpdate, onError) {
 
     exec(onUpdate, onError, "appUpdateData", "get_data", []);
     console.log('testing 123...');
-    alert('testing');
 };
 
 module.exports = new appUpdater();
