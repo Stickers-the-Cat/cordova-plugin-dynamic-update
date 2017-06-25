@@ -12,8 +12,11 @@ DynamicUpdate.prototype.deploy = function (onError) {
     exec(null, onError, "DynamicUpdate", "deploy", []);
 };*/
 
-appUpdater.prototype.update = function (onUpdate) {
-    exec(onUpdate, null, "appUpdateData", "get_data", []);
+appUpdater.prototype.update = function (onUpdate, onError) {
+
+    exec(onUpdate, onError, "appUpdateData", "get_data", []);
+    console.log('testing 123...');
+    alert('testing');
 };
 
 module.exports = new appUpdater();
