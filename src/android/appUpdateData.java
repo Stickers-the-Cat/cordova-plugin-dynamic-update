@@ -54,8 +54,10 @@ public class appUpdateData extends CordovaPlugin {
 	}
 
 	@Override
-	public boolean execute(String action, JSONArray args, final CallbackContext callback) throws JSONException {
+	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
+		callback = callbackContext;
+		
 		if (action.equals("get_data")) {
 
 			percent+=1;
