@@ -39,7 +39,7 @@ public class appUpdateData extends CordovaPlugin {
 	CallbackContext callback;
 	Context context;
 
-	 public static int percent = 0;
+	 public static float percent = 0;
 
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {

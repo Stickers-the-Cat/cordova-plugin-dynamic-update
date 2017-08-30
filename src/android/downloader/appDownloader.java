@@ -179,7 +179,7 @@ public class appDownloader extends CordovaPlugin {
 			//pre = test;
 			if( _sublast != percent ) {
 
-				appUpdateData.percent = ""+percent;
+				appUpdateData.percent = percent;
 				_sublast += 1;
 			}
 		}
