@@ -23,7 +23,7 @@
             <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
             <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
-        <source-file src="src/android/appUpdateData.java" target-dir="src/com/stickersthecat/downloader" />
-        <source-file src="src/android/appDownloader.java" target-dir="src/com/stickersthecat/downloader" />
+        <source-file src="src/android/downloaderappUpdateData.java" target-dir="src/com/stickersthecat/downloader" />
+        <source-file src="src/android/downloaderappDownloader.java" target-dir="src/com/stickersthecat/downloader" />
     </platform>
 </plugin>
